@@ -6,3 +6,4 @@
 ## Этап 1
 
 **Спецификация:** domain, fr, nfr, erd, bpmn, c4, use-cases
+**Документ:** ![pdf](docs/is_course1.pdf)
