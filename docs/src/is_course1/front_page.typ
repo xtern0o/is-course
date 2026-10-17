@@ -10,7 +10,7 @@
 
 #let parts = (
   [*Курсовая работа*],
-  [\ *Edu Proj MS*],
+  [\ *"trace" \ Teamwork, Review & Assignment Coordination Environment* ],
   [Информационная система поддержки проектной и учебной деятельности студентов],
   if lab.name != "" and lab.name != none { lab.name } else { [] },
 ).filter(x => x != [])
@@ -21,7 +21,7 @@
   ]
 ]
 
-#v(6cm)
+#v(5cm)
 #align(right)[
   Выполнили: \ #student.name \ Группа: #student.group #parbreak()
   Проверил: \ #teacher
