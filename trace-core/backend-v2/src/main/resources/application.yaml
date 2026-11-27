@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: trace
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:55432/trace}
+    username: ${DB_USERNAME:trace}
+    password: ${DB_PASSWORD:trace-local}
+    hikari:
+      pool-name: trace-pool
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      connection-timeout: ${DB_POOL_CONNECTION_TIMEOUT_MS:3000}
+      validation-timeout: ${DB_POOL_VALIDATION_TIMEOUT_MS:1000}
+      idle-timeout: ${DB_POOL_IDLE_TIMEOUT_MS:600000}
+      max-lifetime: ${DB_POOL_MAX_LIFETIME_MS:1800000}
+
+  jpa:
+    open-in-view: false   # контроллеры на загружают lazy-связи за пределами service-транзакций
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: ${HIBERNATE_BATCH_SIZE:25}
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    drop-first: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8180/realms/trace}
+
+  jackson:
+    time-zone: UTC
+    deserialization:
+      fail-on-unknown-properties: true
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+  forward-headers-strategy: framework
