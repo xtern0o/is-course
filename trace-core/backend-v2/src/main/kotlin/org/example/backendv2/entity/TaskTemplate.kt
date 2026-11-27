@@ -19,7 +19,7 @@ import java.util.UUID
 
 @Entity
 @Table(name = "task_template")
-class чёTaskTemplate(
+class TaskTemplate(
     @field:Id
     @field:GeneratedValue
     @field:UuidGenerator(algorithm = UuidVersion7Strategy::class)

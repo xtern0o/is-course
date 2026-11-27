@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: changes/001-initial-schema.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/002-trigger-functions.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/003-triggers.sql
+      relativeToChangelogFile: true
