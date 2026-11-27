@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f4;
+    color: #182c28;
+    font: 16px/1.55 system-ui,
+    sans-serif;
+}
+
+main {
+    max-width: 860px;
+    margin: auto;
+    padding: 24px;
+}
+
+header,
+header form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+header {
+    padding: 12px 0 20px;
+    border-bottom: 1px solid #becbc6;
+}
+
+header strong {
+    font-size: 30px;
+    letter-spacing: -2px;
+}
+
+section,
+main > form {
+    padding: 24px 0;
+}
+
+article {
+    padding: 16px 0;
+    border-bottom: 1px solid #d4ded8;
+}
+
+article p {
+    margin: 4px 0;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    padding: 7px 15px;
+    border: 1px solid #8ba89b;
+    border-radius: 6px;
+    background: white;
+    color: #16483b;
+}
+
+button:hover {
+    background: #e5f0eb;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+.link {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 650;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin: 16px 0;
+    font-weight: 600;
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 9px;
+    font: inherit;
+    border: 1px solid #9fafaa;
+    border-radius: 5px;
+}
+
+textarea {
+    min-height: 85px;
+}
+
+section p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+nav {
+    margin-top: 18px;
+}
+
+[role="alert"] {
+    color: #902b23;
+}
+
+.panel,
+details {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border: 1px solid #cbd8d1;
+    border-radius: 6px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+fieldset fieldset {
+    margin: 12px 0;
+    padding: 10px;
+    border-left: 2px solid #abc7b9;
+}
+
+input[type="checkbox"] {
+    display: inline;
+    width: auto;
+    margin-right: 8px;
+}
+
+select {
+    display: block;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #a0b4a8;
+    background: white;
+    max-width: 100%;
+}
+
+.action {
+    margin: 12px 0;
+}
+
+.action label {
+    margin: 8px 0;
+}
+
+article p {
+    white-space: pre-wrap;
+}

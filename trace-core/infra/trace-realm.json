@@ -1,0 +1,134 @@
+{
+  "realm": "trace",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "teacher"
+      },
+      {
+        "name": "student"
+      },
+      {
+        "name": "admin"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "trace-web",
+      "secret": "local-trace-secret",
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "publicClient": false,
+      "redirectUris": [
+        "http://localhost:8080/login/oauth2/code/trace"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:8080/"
+      },
+      "protocolMappers": [
+        {
+          "name": "trace-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "config": {
+            "claim.name": "trace_roles",
+            "multivalued": "true",
+            "jsonType.label": "String",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "trace-provision",
+      "secret": "local-provision-secret",
+      "protocol": "openid-connect",
+      "serviceAccountsEnabled": true,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "publicClient": false
+    }
+  ],
+  "users": [
+    {
+      "username": "student",
+      "enabled": true,
+      "email": "student@example.org",
+      "emailVerified": true,
+      "firstName": "Егор",
+      "lastName": "Trace",
+      "realmRoles": [
+        "student"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "student-local",
+          "temporary": false
+        }
+      ],
+      "id": "b745feba-bd26-5bb3-b232-fe9d4eacbc29"
+    },
+    {
+      "username": "teacher",
+      "enabled": true,
+      "email": "teacher@example.org",
+      "emailVerified": true,
+      "firstName": "Мария",
+      "lastName": "Trace",
+      "realmRoles": [
+        "teacher"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "teacher-local",
+          "temporary": false
+        }
+      ],
+      "id": "3629410c-ae40-5ce1-8f53-5b39a893d3f5"
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@example.org",
+      "emailVerified": true,
+      "firstName": "Администратор",
+      "lastName": "TRACE",
+      "realmRoles": [
+        "admin"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin-local",
+          "temporary": false
+        }
+      ],
+      "id": "ddc0b0b8-d320-47ff-90eb-a6ba9077c360"
+    },
+    {
+      "username": "service-account-trace-provision",
+      "enabled": true,
+      "serviceAccountClientId": "trace-provision",
+      "clientRoles": {
+        "realm-management": [
+          "manage-users"
+        ]
+      }
+    }
+  ],
+  "registrationAllowed": true,
+  "displayName": "TRACE",
+  "loginTheme": "trace",
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "ru",
+    "en"
+  ],
+  "defaultLocale": "ru",
+  "passwordPolicy": "length(8)"
+}

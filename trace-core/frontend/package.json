@@ -1,0 +1,16 @@
+{
+  "name": "trace-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build --outDir ../backend/src/main/resources/static --emptyOutDir"
+  },
+  "dependencies": {
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "vite": "6.4.1"
+  }
+}

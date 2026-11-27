@@ -1,0 +1,15 @@
+body {
+    background: #edf1f7 !important;
+    font-family: Inter, system-ui, sans-serif
+}
+
+#kc-header-wrapper {
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: #263d72
+}
+
+.pf-v5-c-login__main {
+    border-radius: 18px;
+    box-shadow: 0 16px 64px #17265417
+}
