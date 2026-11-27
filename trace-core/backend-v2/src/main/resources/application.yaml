@@ -1,6 +1,20 @@
+app:
+  s3:
+    attachments-bucket: ${S3_BUCKET:trace-attachments}
+
 spring:
   application:
     name: trace
+
+  cloud:
+    aws:
+      credentials:
+        access-key: ${S3_ACCESS_KEY:trace}
+        secret-key: ${S3_SECRET_KEY:trace-local}
+      s3:
+        endpoint: ${S3_ENDPOINT:http://localhost:9000}
+        region: ${S3_REGION:us-east-1}
+        path-style-access-enabled: true
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:55432/trace}
