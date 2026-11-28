@@ -13,6 +13,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import org.example.backendv2.dto.project.response.ProjectResponse
 import org.example.backendv2.entity.enums.ProjectStatus
 import org.example.backendv2.entity.enums.ProjectType
 import org.hibernate.annotations.CreationTimestamp
@@ -62,3 +63,16 @@ class Project(
     @field:Column(name = "completed_at")
     var completedAt: Instant? = null,
 )
+
+fun Project.toResponse(): ProjectResponse =
+    ProjectResponse(
+        id = requireNotNull(id),
+        name = name,
+        description = description,
+        goal = goal,
+        type = type,
+        status = status,
+        manager = manager.toSummaryResponse(),
+        createdAt = requireNotNull(createdAt),
+        completedAt = completedAt,
+    )

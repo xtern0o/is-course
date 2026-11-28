@@ -7,6 +7,7 @@ import org.example.backendv2.entity.enums.UserRole
 import org.example.backendv2.entity.toResponse
 import org.example.backendv2.repository.UserRepository
 import org.example.backendv2.repository.projection.toResponse
+import org.example.backendv2.service.jwt.JwtService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Slice
 import org.springframework.security.access.prepost.PreAuthorize
@@ -19,6 +20,7 @@ import java.util.UUID
 @Service
 class UserService(
     private val userRepository: UserRepository,
+    private val jwtService: JwtService,
 ) {
     /**
      * Возвращает бизнес-данные пользователя
@@ -77,38 +79,26 @@ class UserService(
 
         return users.map { it.toResponse() }
     }
+
     private fun synchronize(jwt: Jwt): User {
-        val ssoSubject = jwt.subject
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?: throw IllegalArgumentException("JWT не содержит subject")
+        val claims = jwtService.getUserClaims(jwt)
 
-        val username = jwt.requiredStringClaim("preferred_username")
-        val email = jwt.requiredStringClaim("email")
-            .lowercase(Locale.ROOT)
-
-        val displayName = jwt.getClaimAsString("name")
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?: username
-
-        val role = jwt.extractUserRole()
-
-        val user = userRepository.findBySsoSubject(ssoSubject) ?: return userRepository.save(
-            User(
-                ssoSubject = ssoSubject,
-                username = username,
-                displayName = displayName,
-                email = email,
-                role = role,
-            ),
-        )
+        val user = userRepository.findBySsoSubject(claims.subject)
+            ?: return userRepository.save(
+                User(
+                    ssoSubject = claims.subject,
+                    username = claims.username,
+                    displayName = claims.displayName,
+                    email = claims.email,
+                    role = claims.role,
+                ),
+            )
 
         return user.apply {
-            this.username = username
-            this.displayName = displayName
-            this.email = email
-            this.role = role
+            username = claims.username
+            displayName = claims.displayName
+            email = claims.email
+            role = claims.role
         }
     }
 

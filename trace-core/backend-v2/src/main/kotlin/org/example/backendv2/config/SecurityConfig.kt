@@ -1,6 +1,7 @@
 package org.example.backendv2.config
 
 import jakarta.servlet.DispatcherType
+import org.example.backendv2.service.jwt.JwtService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -44,15 +45,15 @@ class SecurityConfig {
     }
 
     @Bean
-    fun jwtAuthenticationConverter(): JwtAuthenticationConverter =
+    fun jwtAuthenticationConverter(
+        jwtService: JwtService,
+    ): JwtAuthenticationConverter =
         JwtAuthenticationConverter().apply {
             setJwtGrantedAuthoritiesConverter { jwt ->
-                val realmAccess = jwt.getClaimAsMap("realm_access")
-                val roles = realmAccess?.get("roles") as? Collection<*> ?: emptyList<Any>()
-
-                roles
-                    .filterIsInstance<String>()
-                    .map { role -> SimpleGrantedAuthority("ROLE_${role.uppercase()}") }
+                jwtService.getUserRoles(jwt)
+                    .map { role ->
+                        SimpleGrantedAuthority("ROLE_${role.name}")
+                    }
             }
         }
 }
