@@ -10,6 +10,8 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
+import org.example.backendv2.dto.user.response.UserResponse
+import org.example.backendv2.dto.user.response.UserSummaryResponse
 import org.example.backendv2.entity.enums.UserRole
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UuidGenerator
@@ -55,3 +57,21 @@ class User(
     @field:Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: Instant? = null,
 )
+
+fun User.toResponse(): UserResponse =
+    UserResponse(
+        id = requireNotNull(id),
+        username = username,
+        displayName = displayName,
+        email = email,
+        role = role,
+        createdAt = requireNotNull(createdAt),
+    )
+
+fun User.toSummaryResponse(): UserSummaryResponse =
+    UserSummaryResponse(
+        id = requireNotNull(id),
+        username = username,
+        displayName = displayName,
+        role = role,
+    )

@@ -11,13 +11,7 @@ import java.util.UUID
 @Repository
 interface DiscussionMessageRepository : JpaRepository<DiscussionMessage, UUID> {
 
-    @EntityGraph(
-        attributePaths = [
-            "author",
-            "submission",
-            "review",
-        ],
-    )
+    @EntityGraph(attributePaths = ["author"])
     fun findAllByAssignmentIdOrderByCreatedAtDesc(
         assignmentId: UUID,
         pageable: Pageable,
