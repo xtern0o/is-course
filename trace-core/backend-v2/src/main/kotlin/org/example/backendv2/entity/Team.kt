@@ -12,6 +12,7 @@ import jakarta.persistence.UniqueConstraint
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import org.example.backendv2.dto.team.response.TeamResponse
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UuidGenerator
 import org.hibernate.id.uuid.UuidVersion7Strategy
@@ -55,3 +56,13 @@ class Team(
     @field:Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: Instant? = null,
 )
+
+fun Team.toResponse(): TeamResponse =
+    TeamResponse(
+        id = requireNotNull(id),
+        projectId = requireNotNull(project.id),
+        name = name,
+        description = description,
+        recruitmentOpen = recruitmentOpen,
+        createdAt = requireNotNull(createdAt),
+    )

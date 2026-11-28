@@ -101,28 +101,4 @@ class UserService(
             role = claims.role
         }
     }
-
-    private fun Jwt.requiredStringClaim(name: String): String =
-        getClaimAsString(name)
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?: throw IllegalArgumentException("JWT не содержит claim '$name'")
-
-    private fun Jwt.extractUserRole(): UserRole {
-        val realmRoles = getClaimAsMap("realm_access")
-            ?.get("roles")
-            .let { it as? Collection<*> }
-            .orEmpty()
-            .filterIsInstance<String>()
-            .map { it.uppercase(Locale.ROOT) }
-            .toSet()
-
-        val userRoles = UserRole.entries
-            .filter { it.name in realmRoles }
-
-        return userRoles.singleOrNull()
-            ?: throw IllegalArgumentException(
-                "пользователю должна быть назначена ровно одна системная роль",
-            )
-    }
 }

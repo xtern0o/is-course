@@ -38,9 +38,9 @@ class ProjectService(
         checkCreationPermission(manager, request.type)
 
         val project = Project(
-            name = request.name.normalizedName(),
-            description = request.description.normalized(),
-            goal = request.goal.normalized(),
+            name = request.name.trim(),
+            description = request.description?.trim(),
+            goal = request.goal?.trim(),
             type = request.type,
             manager = manager,
         )
@@ -101,9 +101,9 @@ class ProjectService(
         checkEditable(project)
 
         return project.apply {
-            name = request.name.normalizedName()
-            description = request.description.normalized()
-            goal = request.goal.normalized()
+            name = request.name.trim()
+            description = request.description?.trim()
+            goal = request.goal?.trim()
         }.toResponse()
     }
 
@@ -205,17 +205,5 @@ class ProjectService(
             "завершённый или архивный проект нельзя редактировать"
         }
     }
-
-    private fun String.normalizedName(): String =
-        trim().also {
-            require(it.isNotEmpty()) {
-                "название проекта не может быть пустым"
-            }
-        }
-
-    private fun String?.normalized(): String? =
-        this
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
 
 }
