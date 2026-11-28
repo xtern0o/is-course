@@ -52,7 +52,7 @@ class SecurityConfig {
 
                 roles
                     .filterIsInstance<String>()
-                    .map { role -> SimpleGrantedAuthority("ROLE_$role") }
+                    .map { role -> SimpleGrantedAuthority("ROLE_${role.uppercase()}") }
             }
         }
 }
